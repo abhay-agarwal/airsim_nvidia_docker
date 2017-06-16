@@ -22,8 +22,6 @@ WORKDIR /home/unreal
 
 RUN git clone https://github.com/Microsoft/AirSim.git && cd AirSim/cmake && sudo bash ./getlibcxx.sh; exit 0
 COPY airsim.patch .
-COPY airsim2.patch .
-RUN cd AirSim/MavLinkCom/include && patch -p0 < ~/airsim2.patch
 RUN cd AirSim && patch -p0 < ~/airsim.patch && ./build.sh
 RUN cd AirSim && rsync -t -r Unreal/Plugins Unreal/Environments/Blocks
 ENV EIGEN_ROOT /home/unreal/AirSim/eigen

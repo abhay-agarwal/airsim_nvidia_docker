@@ -33,4 +33,4 @@ RUN cd UnrealEngine-4.15.0-release/Engine/Source/Programs/UnrealBuildTool/Linux 
 RUN sudo apt-get update && cd UnrealEngine-4.15.0-release && ./Setup.sh && ./GenerateProjectFiles.sh -project="/home/unreal/AirSim/Unreal/Environments/Blocks/Blocks.uproject" -game -engine
 
 
-RUN mkdir -p out && cd AirSim/Unreal/Environments/Blocks && ~/UnrealEngine-4.15.0-release/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun -project="$PWD/Blocks.uproject" -platform=Linux -clientconfig=Shipping -cook -allmaps -build -stage -pak -archive -archivedirectory="/home/unreal/out"
+RUN mkdir -p out && cd AirSim/Unreal/Environments/Blocks && ~/UnrealEngine-4.15.0-release/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun -project="$PWD/Blocks.uproject" -platform=Linux -clientconfig=DebugGame -cook -allmaps -build -stage -pak -archive -archivedirectory="/home/unreal/out"

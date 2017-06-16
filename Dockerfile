@@ -26,7 +26,7 @@ RUN cd AirSim && patch -p0 < ~/airsim.patch && ./build.sh
 RUN cd AirSim && rsync -t -r Unreal/Plugins Unreal/Environments/Blocks
 ENV EIGEN_ROOT /home/unreal/AirSim/eigen
 
-COPY UnrealEngine-4.15.0-release.zip
+COPY UnrealEngine-4.15.0-release.zip .
 RUN unzip UnrealEngine-4.15.0-release.zip && rm UnrealEngine-4.15.0-release.zip
 COPY ltc4.patch .
 RUN cd UnrealEngine-4.15.0-release/Engine/Source/Programs/UnrealBuildTool/Linux && patch -p0 < ~/ltc4.patch

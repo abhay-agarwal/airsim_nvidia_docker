@@ -28,7 +28,7 @@ ENV EIGEN_ROOT /home/unreal/AirSim/eigen
 
 ADD UnrealEngine-4.15.0-release.tar.gz .
 COPY ltc4.patch .
-RUN cd UnrealEngine-4.15.0-release/Engine/Source/Programs/UnrealBuildTool/Linux && patch -p0 < ltc4.patch
+RUN cd UnrealEngine-4.15.0-release/Engine/Source/Programs/UnrealBuildTool/Linux && patch -p0 < ~/ltc4.patch
 RUN cd UnrealEngine-4.15.0-release && ./Setup.sh && ./GenerateProjectFiles.sh -project="/home/unreal/AirSim/Unreal/Environments/Blocks/Blocks.uproject" -game -engine
 
 

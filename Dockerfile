@@ -16,7 +16,7 @@ LABEL com.nvidia.volumes.needed="nvidia_driver"
 ENV PATH /usr/local/nvidia/bin:/opt/VirtualGL/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
-RUN useradd -m unreal && echo "unreal:unreal" | chpasswd && adduser unreal sudo
+RUN useradd -m unreal && echo "unreal:unreal" | chpasswd && adduser unreal sudo && echo "unreal ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER unreal
 WORKDIR /home/unreal
 

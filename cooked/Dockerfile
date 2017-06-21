@@ -16,7 +16,12 @@ RUN useradd -m unreal && echo "unreal:unreal" | chpasswd && adduser unreal sudo 
 USER unreal
 WORKDIR /home/unreal
 
+COPY keyboard /etc/default/
+COPY tigervncserver_1.8.0-1ubuntu1_amd64.deb .
+RUN sudo apt-get update && sudo dpkg -i tigervncserver_1.8.0-1ubuntu1_amd64.deb; sudo apt-get -f -y install && sudo apt-get install -y xserver-xorg && sudo rm -rf /var/lib/apt/lists/* && sudo rm tigervncserver_1.8.0-1ubuntu1_amd64.deb
+
 COPY LinuxNoEditor .
 COPY settings.json /home/unreal/Documents/AirSim/
 
-CMD vglrun ./Blocks/Binaries/Linux/Blocks-Linux-Shipping
+COPY launch.sh .
+CMD bash ./launch.sh

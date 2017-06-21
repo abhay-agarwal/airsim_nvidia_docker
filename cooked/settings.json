@@ -1,0 +1,11 @@
+{
+  "LocalHostIp": "127.0.0.1",
+  "Pixhawk": {
+    "SitlIp": "127.0.0.1",
+    "SitlPort": 14556,
+    "UdpIp": "127.0.0.1",
+    "UdpPort": 14560,
+    "UseSerial": false,
+    "RpcEnabled": false
+  }
+}

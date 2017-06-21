@@ -61,4 +61,10 @@ ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_P
 
 RUN sudo apt-get update && sudo apt-get -y install tmux && sudo rm -rf /var/lib/apt/lists/*
 
+COPY virtualgl_2.5.2_amd64.deb .
+RUN sudo dpkg -i virtualgl_2.5.2_amd64.deb \
+        && sudo /opt/VirtualGL/bin/vglserver_config -config +s +f -t
+
+COPY settings.json /home/unreal/Documents/AirSim/
+
 CMD bash /home/unreal/Documents/launch.sh

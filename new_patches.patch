@@ -301,16 +301,15 @@ index 739d28b..3de7ed2 100644
  protected:
      virtual void setupInputBindings();
 diff --git a/Unreal/Plugins/AirSim/Source/SimMode/SimModeWorldMultiRotor.cpp b/Unreal/Plugins/AirSim/Source/SimMode/SimModeWorldMultiRotor.cpp
-index b9c557a..fd9862d 100644
+index b9c557a..db86a49 100644
 --- a/Unreal/Plugins/AirSim/Source/SimMode/SimModeWorldMultiRotor.cpp
 +++ b/Unreal/Plugins/AirSim/Source/SimMode/SimModeWorldMultiRotor.cpp
-@@ -6,8 +6,29 @@
+@@ -6,8 +6,28 @@
  #include <memory>
  #include "FlyingPawn.h"
  #include "Logging/MessageLog.h"
 -#include "vehicles/MultiRotorParamsFactory.hpp"
 +#include "vehicles/MultiRotorParamsFactory.hpp"
-+#include "common/common_utils/Log.hpp"
  
 +using namespace common_utils;
 +
@@ -335,7 +334,7 @@ index b9c557a..fd9862d 100644
  
  ASimModeWorldMultiRotor::ASimModeWorldMultiRotor()
  {
-@@ -85,19 +106,46 @@ void ASimModeWorldMultiRotor::Tick(float DeltaSeconds)
+@@ -85,19 +105,46 @@ void ASimModeWorldMultiRotor::Tick(float DeltaSeconds)
  {
      if (fpv_vehicle_connector_ != nullptr && fpv_vehicle_connector_->isApiServerStarted() && getVehicleCount() > 0) {
  
@@ -392,7 +391,7 @@ index b9c557a..fd9862d 100644
          }
      }
  
-@@ -110,10 +158,10 @@ void ASimModeWorldMultiRotor::EndPlay(const EEndPlayReason::Type EndPlayReason)
+@@ -110,10 +157,10 @@ void ASimModeWorldMultiRotor::EndPlay(const EEndPlayReason::Type EndPlayReason)
          fpv_vehicle_connector_->stopApiServer();
      }
  

@@ -46,24 +46,24 @@ RUN cd ~/UnrealEngine-4.15 && ./GenerateProjectFiles.sh -project="/home/unreal/A
 RUN mkdir -p /home/unreal/out
 RUN cd ~/AirSim/Unreal/Environments/Blocks && ~/UnrealEngine-4.15/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun -project="$PWD/Blocks.uproject" -platform=Linux -clientconfig=Shipping -cook -allmaps -build -stage -pak -archive -archivedirectory="/home/unreal/out"
 
-RUN sudo apt-get update && sudo apt-get -y install git build-essential cmake python unzip python-jinja2 python-empy python-pip && sudo rm -rf /var/lib/apt/lists/*
-RUN sudo pip install catkin_pkg
-RUN sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 90
-RUN sudo update-alternatives --install /usr/bin/cxx cxx /usr/bin/g++ 90
-RUN sudo update-alternatives --set cc /usr/bin/gcc
-RUN sudo update-alternatives --set cxx /usr/bin/g++
-RUN cd ~/ && git clone https://github.com/PX4/Firmware.git && cd Firmware && make posix_sitl_default
+# RUN sudo apt-get update && sudo apt-get -y install git build-essential cmake python unzip python-jinja2 python-empy python-pip && sudo rm -rf /var/lib/apt/lists/*
+# RUN sudo pip install catkin_pkg
+# RUN sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 90
+# RUN sudo update-alternatives --install /usr/bin/cxx cxx /usr/bin/g++ 90
+# RUN sudo update-alternatives --set cc /usr/bin/gcc
+# RUN sudo update-alternatives --set cxx /usr/bin/g++
+# RUN cd ~/ && git clone https://github.com/PX4/Firmware.git && cd Firmware && make posix_sitl_default
 
-LABEL com.nvidia.volumes.needed="nvidia_driver"
-ENV PATH /usr/local/nvidia/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+# LABEL com.nvidia.volumes.needed="nvidia_driver"
+# ENV PATH /usr/local/nvidia/bin:${PATH}
+# ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
-RUN sudo apt-get update && sudo apt-get -y install tmux && sudo rm -rf /var/lib/apt/lists/*
+# RUN sudo apt-get update && sudo apt-get -y install tmux && sudo rm -rf /var/lib/apt/lists/*
 
-COPY virtualgl_2.5.2_amd64.deb .
-RUN sudo dpkg -i virtualgl_2.5.2_amd64.deb \
-        && sudo /opt/VirtualGL/bin/vglserver_config -config +s +f -t
+# COPY virtualgl_2.5.2_amd64.deb .
+# RUN sudo dpkg -i virtualgl_2.5.2_amd64.deb \
+#         && sudo /opt/VirtualGL/bin/vglserver_config -config +s +f -t
 
-COPY settings.json /home/unreal/Documents/AirSim/
+# COPY settings.json /home/unreal/Documents/AirSim/
 
-CMD bash /home/unreal/Documents/launch.sh
+# CMD bash /home/unreal/Documents/launch.sh

@@ -20,8 +20,17 @@ COPY keyboard /etc/default/
 COPY tigervncserver_1.8.0-1ubuntu1_amd64.deb .
 RUN sudo apt-get update && sudo dpkg -i tigervncserver_1.8.0-1ubuntu1_amd64.deb; sudo apt-get -f -y install && sudo apt-get install -y xserver-xorg && sudo rm -rf /var/lib/apt/lists/* && sudo rm tigervncserver_1.8.0-1ubuntu1_amd64.deb
 
-COPY LinuxNoEditor .
-COPY settings.json /home/unreal/Documents/AirSim/
+RUN sudo apt-get update && sudo apt-get -y install git build-essential cmake python unzip python-jinja2 python-empy python-pip && sudo rm -rf /var/lib/apt/lists/* \
+	&& sudo pip install catkin_pkg \
+	&& sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 90 \
+	&& sudo update-alternatives --install /usr/bin/cxx cxx /usr/bin/g++ 90 \
+	&& sudo update-alternatives --set cc /usr/bin/gcc \
+	&& sudo update-alternatives --set cxx /usr/bin/g++ \
+	&& cd ~/ && git clone https://github.com/PX4/Firmware.git && cd Firmware && make posix_sitl_default
 
+COPY LinuxNoEditor .
+COPY Documents Documents
+
+RUN sudo apt-get update && sudo apt-get install -y tmux && sudo rm -rf /var/lib/apt/lists/*
 COPY launch.sh .
 CMD bash ./launch.sh

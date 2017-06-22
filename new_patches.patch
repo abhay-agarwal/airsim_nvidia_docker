@@ -12,6 +12,95 @@ index 9d3d257..339c01c 100644
      };
      typedef SensorBase* SensorBasePtr;
  public:
+diff --git a/AirLib/include/sensors/ground_truth/GroundTruthSensor.hpp b/AirLib/include/sensors/ground_truth/GroundTruthSensor.hpp
+new file mode 100644
+index 0000000..8de5e28
+--- /dev/null
++++ b/AirLib/include/sensors/ground_truth/GroundTruthSensor.hpp
+@@ -0,0 +1,83 @@
++// Licensed under the MIT License.
++
++#ifndef msr_airlib_GroundTruthSensor_hpp
++#define msr_airlib_GroundTruthSensor_hpp
++
++
++#include "sensors/SensorBase.hpp"
++#include "common/CommonStructs.hpp"
++
++
++namespace msr { namespace airlib {
++
++class GroundTruthSensor  : public SensorBase {
++public: //types
++    struct Output {	//structure is same as ROS IMU message
++        EIGEN_MAKE_ALIGNED_OPERATOR_NEW
++        Quaternionr orientation;
++        Vector3r angular_velocity;
++        GeoPoint position;
++        Vector3r velocity;
++        Vector3r acceleration;
++    };
++
++
++public:
++    virtual void reportState(StateReporter& reporter) override
++    {
++        //call base
++        UpdatableObject::reportState(reporter);
++
++        reporter.writeValue("GT-Ang", output_.angular_velocity);
++        reporter.writeValue("GT-Pos", output_.position);
++        reporter.writeValue("GT-Vel", output_.velocity);
++        reporter.writeValue("GT-Acc", output_.acceleration);
++    }
++
++    const Output& getOutput() const
++    {
++        return output_;
++    }
++
++    //*** Start: UpdatableState implementation ***//
++    virtual void reset() override
++    {
++        updateOutput();
++    }
++
++    virtual void update() override
++    {
++        updateOutput();
++    }
++    //*** End: UpdatableState implementation ***//
++
++protected:
++    void setOutput(const Output& output)
++    {
++        output_ = output;
++    }
++
++
++private: 
++    void updateOutput()
++    {
++        Output output;
++        const GroundTruth& ground_truth = getGroundTruth();
++
++        output.orientation = ground_truth.kinematics->pose.orientation;
++        output.angular_velocity = ground_truth.kinematics->twist.angular;
++        output.position = ground_truth.environment->getState().geo_point;
++        output.velocity = ground_truth.kinematics->twist.linear;
++        output.acceleration = ground_truth.kinematics->accelerations.linear - ground_truth.environment->getState().gravity;
++
++        output.acceleration = VectorMath::transformToBodyFrame(output.acceleration, 
++            ground_truth.kinematics->pose.orientation, true);
++
++        setOutput(output);
++    }
++    Output output_;
++};
++
++
++}} //namespace
++#endif 
 diff --git a/AirLib/include/vehicles/MultiRotorParams.hpp b/AirLib/include/vehicles/MultiRotorParams.hpp
 index e9c2501..b12f8f7 100644
 --- a/AirLib/include/vehicles/MultiRotorParams.hpp

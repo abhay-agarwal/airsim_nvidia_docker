@@ -17,6 +17,62 @@ index 8a95839..e8a20bf 100644
  
              UAirBlueprintLib::LogMessage(TEXT("Screenshot saved to:"), filePath, LogDebugLevel::Success);
              imagesSaved++;
+diff --git a/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp b/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp
+index ea6a05d..d6ce1c3 100644
+--- a/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp
++++ b/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.cpp
+@@ -93,21 +93,21 @@ ECameraDirectorMode ASimModeBase::getInitialViewMode()
+ 
+ void ASimModeBase::startRecording()
+ {
+-    if (record_file.is_open()) {
+-        record_file.close();
+-        UAirBlueprintLib::LogMessage(TEXT("Recording Error"), TEXT("File was already open"), LogDebugLevel::Failure);
+-    }
++    // if (record_file.is_open()) {
++    //     record_file.close();
++    //     UAirBlueprintLib::LogMessage(TEXT("Recording Error"), TEXT("File was already open"), LogDebugLevel::Failure);
++    // }
+ 
+-    std::string fullPath = common_utils::FileSystem::getLogFileNamePath(record_filename, "", ".txt", true);
+-    common_utils::FileSystem::createTextFile(fullPath, record_file);
++    // std::string fullPath = common_utils::FileSystem::getLogFileNamePath(record_filename, "", ".txt", true);
++    // common_utils::FileSystem::createTextFile(fullPath, record_file);
+ 
+-    if (record_file.is_open()) {
++    // if (record_file.is_open()) {
+         is_recording = true;
+ 
+-        UAirBlueprintLib::LogMessage(TEXT("Recording"), TEXT("Started"), LogDebugLevel::Success);
+-    }
+-    else
+-        UAirBlueprintLib::LogMessage("Error creating log file", fullPath.c_str(), LogDebugLevel::Failure);
++    //     UAirBlueprintLib::LogMessage(TEXT("Recording"), TEXT("Started"), LogDebugLevel::Success);
++    // }
++    // else
++    //     UAirBlueprintLib::LogMessage("Error creating log file", fullPath.c_str(), LogDebugLevel::Failure);
+ }
+ 
+ bool ASimModeBase::toggleRecording()
+@@ -123,11 +123,11 @@ bool ASimModeBase::toggleRecording()
+ void ASimModeBase::stopRecording()
+ {
+     is_recording = false;
+-    if (!record_file.is_open()) {
+-        UAirBlueprintLib::LogMessage(TEXT("Recording Error"), TEXT("File was not open"), LogDebugLevel::Failure);
+-    }
+-    else
+-        record_file.close();
++    // if (!record_file.is_open()) {
++    //     UAirBlueprintLib::LogMessage(TEXT("Recording Error"), TEXT("File was not open"), LogDebugLevel::Failure);
++    // }
++    // else
++    //     record_file.close();
+     
+-    UAirBlueprintLib::LogMessage(TEXT("Recording"), TEXT("Stopped"), LogDebugLevel::Success);
++    // UAirBlueprintLib::LogMessage(TEXT("Recording"), TEXT("Stopped"), LogDebugLevel::Success);
+ }
+\ No newline at end of file
 diff --git a/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.h b/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.h
 index 739d28b..156c490 100644
 --- a/Unreal/Plugins/AirSim/Source/SimMode/SimModeBase.h

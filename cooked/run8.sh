@@ -7,8 +7,11 @@ fi
 
 docker build -t airsim-linux .
 
+tmux kill-session -t nvidia-docker
 tmux new-session -s nvidia-docker -n htop -d
-for PORT in 1 2 3 4 5 6 7 8; do
+
+# start from port 2
+for PORT in 2 3 4 5 6 7 8 9; do
     tmux new-window -t nvidia-docker:$PORT -n instance$PORT
     tmux send-keys -t nvidia-docker:$PORT "PORT=$PORT sh docker.sh" C-m
 done

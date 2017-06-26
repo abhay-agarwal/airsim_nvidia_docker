@@ -7,7 +7,10 @@ fi
 
 docker build -t airsim-linux .
 
-tmux kill-session -t nvidia-docker
+# stop any existing 
+tmux kill-session -t nvidia-docker || true
+docker kill $(docker ps -q) || true
+
 tmux new-session -s nvidia-docker -n htop -d
 
 # start from port 2

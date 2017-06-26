@@ -34,9 +34,8 @@ COPY ltc4.patch /home/unreal/ltc4.patch
 RUN cd ~/UnrealEngine-4.15/Engine/Source/Programs/UnrealBuildTool/Linux && patch -p0 < ~/ltc4.patch
 RUN sudo apt-get update && cd ~/UnrealEngine-4.15 && ./Setup.sh && ./GenerateProjectFiles.sh
 
-RUN cd ~/ && git clone https://github.com/abhay-agarwal/AirSim.git && cd AirSim && git checkout abhay-test-head && cd cmake && sudo bash ./getlibcxx.sh; exit 0
+RUN cd ~/ && git clone https://github.com/abhay-agarwal/AirSim.git && cd AirSim && git checkout collision-detection && cd cmake && sudo bash ./getlibcxx.sh; exit 0
 
-RUN cd ~/AirSim && git apply /home/unreal/new_patches.patch
 RUN cd ~/AirSim && ./build.sh
 RUN cd ~/AirSim && rsync -t -r Unreal/Plugins Unreal/Environments/Blocks
 ENV EIGEN_ROOT /home/unreal/AirSim/eigen

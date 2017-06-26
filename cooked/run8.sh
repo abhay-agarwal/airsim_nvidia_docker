@@ -10,9 +10,9 @@ docker build -t airsim-linux .
 tmux new-session -s nvidia-docker -n htop -d
 for PORT in 1 2 3 4 5 6 7 8; do
     tmux new-window -t nvidia-docker:$PORT -n instance$PORT
-    tmux send-keys -t nvidia-docker:$PORT "PORT=$PORT sh docker.sh"
+    tmux send-keys -t nvidia-docker:$PORT "PORT=$PORT sh docker.sh" C-m
 done
 
-tmux send-keys -t nvidia-docker:0 "htop"
+tmux send-keys -t nvidia-docker:0 "htop" C-m
 tmux select-window -t nvidia-docker:0
 tmux attach-session -t nvidia-docker

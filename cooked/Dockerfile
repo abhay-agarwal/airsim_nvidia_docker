@@ -28,9 +28,9 @@ RUN sudo apt-get update && sudo apt-get -y install git build-essential cmake pyt
 	&& sudo update-alternatives --set cxx /usr/bin/g++ \
 	&& cd ~/ && git clone https://github.com/PX4/Firmware.git && cd Firmware && make posix_sitl_default
 
+RUN sudo apt-get update && sudo apt-get install -y tmux && sudo rm -rf /var/lib/apt/lists/*
 COPY LinuxNoEditor .
 COPY Documents Documents
-
-RUN sudo apt-get update && sudo apt-get install -y tmux && sudo rm -rf /var/lib/apt/lists/*
 COPY launch.sh .
+
 CMD bash ./launch.sh

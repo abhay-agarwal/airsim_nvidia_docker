@@ -1,6 +1,6 @@
 {
   "FpvVehicleName": "Pixhawk",
-  "LocalHostIp": "127.0.0.1",
+  "LocalHostIp": "0.0.0.0",
   "RecordUIVisible": false,
   "LogMessagesVisible": false,
   "ViewMode": "Fpv",

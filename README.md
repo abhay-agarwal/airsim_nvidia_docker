@@ -1,34 +1,17 @@
 airsim_nvidia_docker
 ====================
 
-This setup is in no way ideal, and requires some hacky patches, but:
-1. it works on my machine, and
-2. its isolated
+This is the library to set up AirSim inside of a docker container for portable testing, for example in running an [A3C-LSTM Reinforcement Learning algorithm](https://github.com/abhay-agarwal/reinforce/tree/airsim).
 
-Prerequisites:
+You must have the following:
 
-- docker (tested with 17.03.1-ce)
-- NVIDIA-Linux-x86_64-381.22.run (from NVIDIA, probably can be changed to match your nvidia driver version)
-- UnrealEngine-4.15.zip (Requires signup with Epic Games, downloaded from github)
+Docker 1.17
+Nvidia-Docker (get it [here](https://github.com/NVIDIA/nvidia-docker))
+NVIDIA-Linux-x86_64-381.22.run (download into root directory from NVIDIA)
+UnrealEngine-4.15.zip (Requires signup with Epic Games. Once signed up, go to https://github.com/EpicGames/UnrealEngine/tree/4.15 and click Download ZIP then place in this root directory)
 
-Build/Run:
+Then, run `run.sh`. The build should take approximately an hour (or more depending on your network connection). Fortunately, this only needs to happen once.
 
-    docker build -t airsim_nvidia .
-    ./run.sh
+Then, go to the cooked directory, which should now have a directory with your completed linux binary called `LinuxNoEditor`. Then, you can build the dockerfile in the cooked directory by doing a `docker build -t airsim-linux .`.
 
-This starts up the container with a tmux session with three tabs:
-
-0. PX4 software in the loop
-1. AirSim
-2. DroneShell, where you can query status and enter commands
-
-Issues:
-
-- Takes a very long time to build
-- Final container is pretty big (no excess stuff is removed)
-- Patches to both Unreal and AirSim
-- Could be more portable to NVIDIA drivers
-- Checks out AirSim & PX4 masters, which continuously change
-- PX4 and AirSim containers should be separate, but I couldn't get multi-container commmunication to work
-
-
+The run8 script lets you easily run 8 instances of the image, which is used by the reinforcement learning algorithm. 
